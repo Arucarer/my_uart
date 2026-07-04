@@ -1,0 +1,12 @@
+make
+make clean
+sudo insmod my_uart.ko
+sudo rmmod my_uart
+lsmod | grep my_uart
+dmesg | tail -50
+ls -l /dev/tty_my_uart*
+cat /proc/myuart
+sudo stty -F /dev/tty_my_uart0 115200 cs8 -parenb -cstopb
+gcc my_uart_test.c -o my_uart_test
+sudo ./my_uart_test 10 64
+echo reset | sudo tee /proc/myuart
